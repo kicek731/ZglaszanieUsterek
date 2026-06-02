@@ -1,3 +1,6 @@
+Pobieranie projektu:
+git clone https://github.com/kicek731/ZglaszanieUsterek.git
+
 Commitowanie:
 
    1. git pull origin main
