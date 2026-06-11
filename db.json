@@ -1,0 +1,17 @@
+{
+  "incidents": [
+    {
+      "id": "1",
+      "title": "Cieknący kran",
+      "description": "Woda kapie z kranu w łazience na parterze.",
+      "status": "Nowe"
+    },
+    {
+      "id": "6A_-2xeGNDU",
+      "title": "Usterka ",
+      "description": "Prąd wybija ",
+      "status": "Nowe"
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
+}
