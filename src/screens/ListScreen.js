@@ -1,9 +1,8 @@
-import React from 'react';
-import { View, Text, StyleSheet, FlatList, ActivityIndicator } from 'react-native';
-import { Button } from 'react-native-paper';
+import React, { useState } from 'react';
+import { View, StyleSheet, FlatList, ActivityIndicator, ScrollView } from 'react-native';
+import { Button, Card, Text, Title, Paragraph } from 'react-native-paper';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-
 
 const fetchIncidents = async () => {
   const response = await axios.get('http://172.20.10.6:3000/incidents');
@@ -16,30 +15,72 @@ export default function ListScreen({ navigation }) {
     queryFn: fetchIncidents,
   });
 
+  const [activeTab, setActiveTab] = useState('Nowe');
+
+  const filteredIncidents = incidents
+      ? incidents.filter(item => item.status === activeTab)
+      : [];
+
   return (
       <View style={styles.container}>
-        <Text style={styles.text}>Ekran Listy Zgłoszeń</Text>
+        <View style={styles.filterContainer}>
+          <ScrollView
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              contentContainerStyle={styles.filterScroll}
+          >
+            <Button
+                mode={activeTab === 'Nowe' ? 'contained' : 'outlined'}
+                onPress={() => setActiveTab('Nowe')}
+                style={styles.filterButton}
+            >
+              Nowe
+            </Button>
+            <Button
+                mode={activeTab === 'W trakcie' ? 'contained' : 'outlined'}
+                onPress={() => setActiveTab('W trakcie')}
+                style={styles.filterButton}
+            >
+              W trakcie
+            </Button>
+            <Button
+                mode={activeTab === 'Naprawione' ? 'contained' : 'outlined'}
+                onPress={() => setActiveTab('Naprawione')}
+                style={styles.filterButton}
+            >
+              Naprawione
+            </Button>
+          </ScrollView>
+        </View>
 
-        {isLoading && <ActivityIndicator size="large" color="#6200ee" />}
-        {isError && <Text style={{ color: 'red' }}>Błąd połączenia z serwerem API.</Text>}
+        {isLoading && <ActivityIndicator size="large" color="#6200ee" style={styles.loader} />}
+        {isError && <Text style={styles.errorText}>Błąd połączenia z serwerem API.</Text>}
 
         {incidents && !isLoading && !isError && (
             <FlatList
-                data={incidents}
+                data={filteredIncidents}
                 keyExtractor={(item) => item.id}
-                style={{ width: '100%', paddingHorizontal: 20 }}
+                contentContainerStyle={styles.listContent}
+                ListEmptyComponent={
+                  <Text style={styles.emptyText}>Brak zgłoszeń w tej kategorii.</Text>
+                }
                 renderItem={({ item }) => (
-                    <View style={styles.card}>
-                      <Text style={{ fontWeight: 'bold', fontSize: 16 }}>{item.title}</Text>
-                      <Text>Status: {item.status}</Text>
-                      <Button
-                          mode="contained"
-                          style={{ marginTop: 10 }}
-                          onPress={() => navigation.navigate('Details', { incident: item })}
-                      >
-                        Szczegóły / Edycja
-                      </Button>
-                    </View>
+                    <Card style={styles.card}>
+                      <Card.Content>
+                        <Title style={styles.cardTitle}>{item.title}</Title>
+                        {}
+                        <Paragraph numberOfLines={1} style={styles.cardDescription}>
+                          {item.description || 'Brak opisu'}
+                        </Paragraph>
+                        <Button
+                            mode="contained"
+                            style={styles.button}
+                            onPress={() => navigation.navigate('Details', { incident: item })}
+                        >
+                          Szczegóły
+                        </Button>
+                      </Card.Content>
+                    </Card>
                 )}
             />
         )}
@@ -50,23 +91,60 @@ export default function ListScreen({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: '#f5f5f5',
+  },
+  filterContainer: {
+    backgroundColor: 'white',
+    paddingVertical: 10,
+    elevation: 4,
+    shadowColor: '#000',
+    shadowOpacity: 0.1,
+    shadowRadius: 3,
+    marginBottom: 5,
+  },
+  filterScroll: {
+    paddingHorizontal: 10,
+    gap: 10,
+  },
+  filterButton: {
+    minWidth: 100,
+  },
+  loader: {
+    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#f5f5f5',
-    paddingTop: 20, // Dodany padding dla górnego paska
   },
-  text: {
-    fontSize: 20,
-    marginBottom: 20,
+  listContent: {
+    padding: 16,
+    paddingBottom: 40,
   },
   card: {
     backgroundColor: 'white',
-    padding: 15,
-    marginBottom: 10,
-    borderRadius: 8,
+    marginBottom: 12,
     elevation: 2,
-    shadowColor: '#000',
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-  }
+    borderRadius: 8,
+  },
+  cardTitle: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: '#000000',
+  },
+  cardDescription: {
+    color: '#000000',
+  },
+  button: {
+    marginTop: 10,
+  },
+  emptyText: {
+    textAlign: 'center',
+    marginTop: 30,
+    fontSize: 16,
+    color: 'gray',
+  },
+  errorText: {
+    color: 'red',
+    textAlign: 'center',
+    marginTop: 20,
+    fontSize: 16,
+  },
 });
