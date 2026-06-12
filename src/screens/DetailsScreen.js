@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, StyleSheet, ScrollView, Image } from 'react-native';
 import { Text, Button, Card, Paragraph, Title, Badge } from 'react-native-paper';
+import { Video, ResizeMode } from 'expo-av';
 
 export default function DetailsScreen({ route, navigation }) {
   const incident = route.params?.incident;
@@ -38,12 +39,43 @@ export default function DetailsScreen({ route, navigation }) {
               {incident.description || 'Brak dodatkowego opisu dla tego zgłoszenia.'}
             </Paragraph>
 
-            {incident.photoUri && (
-                <View style={styles.imageContainer}>
+            {incident.attachments && incident.attachments.map((item, index) => (
+                <View key={item.id || index} style={styles.mediaContainer}>
+                  <Text style={styles.label}>
+                    Załącznik {index + 1} ({item.type === 'photo' ? 'Zdjęcie' : 'Wideo'}):
+                  </Text>
+                  {item.type === 'photo' ? (
+                      <Image source={{ uri: item.uri }} style={styles.media} />
+                  ) : (
+                      <Video
+                          source={{ uri: item.uri }}
+                          rate={1.0}
+                          volume={1.0}
+                          isMuted={false}
+                          resizeMode={ResizeMode.CONTAIN}
+                          shouldPlay={false}
+                          useNativeControls
+                          style={styles.media}
+                      />
+                  )}
+                </View>
+            ))}
+
+            {incident.photoUri && !incident.attachments && (
+                <View style={styles.mediaContainer}>
                   <Text style={styles.label}>Załączone zdjęcie:</Text>
-                  <Image
-                      source={{ uri: incident.photoUri }}
-                      style={styles.image}
+                  <Image source={{ uri: incident.photoUri }} style={styles.media} />
+                </View>
+            )}
+
+            {incident.videoUri && !incident.attachments && (
+                <View style={styles.mediaContainer}>
+                  <Text style={styles.label}>Załączone wideo:</Text>
+                  <Video
+                      source={{ uri: incident.videoUri }}
+                      resizeMode={ResizeMode.CONTAIN}
+                      useNativeControls
+                      style={styles.media}
                   />
                 </View>
             )}
@@ -119,17 +151,15 @@ const styles = StyleSheet.create({
     marginTop: 5,
     lineHeight: 22,
   },
-  imageContainer: {
+  mediaContainer: {
     marginTop: 15,
   },
-  image: {
+  media: {
     width: '100%',
     height: 200,
     borderRadius: 8,
     marginTop: 5,
-    resizeMode: 'cover',
-    borderWidth: 1,
-    borderColor: '#ccc',
+    backgroundColor: 'black',
   },
   button: {
     marginTop: 10,

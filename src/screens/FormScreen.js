@@ -8,24 +8,27 @@ import {
   TouchableWithoutFeedback,
   KeyboardAvoidingView,
   Platform,
-  Image // <-- Nowy import do wyświetlania zdjęć
+  Image,
+  ScrollView
 } from 'react-native';
-import { Button } from 'react-native-paper';
+import { Button, IconButton } from 'react-native-paper';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
 
 export default function FormScreen({ route, navigation }) {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
-  const [photo, setPhoto] = useState(null); // Stan trzymający zrobione zdjęcie
+  const [attachments, setAttachments] = useState([]);
   const queryClient = useQueryClient();
 
-  // Nasłuchujemy, czy aparat (CameraScreen) odesłał nam zdjęcie
+  // Nasłuchujemy na kompletną, zaktualizowaną listę przysłaną z aparatu
   useEffect(() => {
-    if (route.params?.photoUri) {
-      setPhoto(route.params.photoUri);
+    if (route.params?.updatedAttachments) {
+      setAttachments(route.params.updatedAttachments);
+      // Czyszczenie parametru, aby uniknąć zapętlenia ponownych renderów
+      navigation.setParams({ updatedAttachments: undefined });
     }
-  }, [route.params?.photoUri]);
+  }, [route.params?.updatedAttachments]);
 
   const mutation = useMutation({
     mutationFn: async (newIncident) => {
@@ -34,11 +37,11 @@ export default function FormScreen({ route, navigation }) {
     },
     onSuccess: async () => {
       await queryClient.invalidateQueries({ queryKey: ['incidents'] });
-      // Czyścimy formularz po udanym wysłaniu
       setTitle('');
       setDescription('');
-      setPhoto(null);
-      navigation.navigate('Zgłoszenia', { screen: 'List' });
+      setAttachments([]);
+      // NAPRAWA BŁĘDU: Przekierowanie bezpośrednio do ekranu głównego 'List'
+      navigation.navigate('List');
     },
   });
 
@@ -49,8 +52,12 @@ export default function FormScreen({ route, navigation }) {
       title,
       description,
       status: 'Nowe',
-      photoUri: photo // Wysyłamy zdjęcie do bazy danych
+      attachments: attachments
     });
+  };
+
+  const removeAttachment = (id) => {
+    setAttachments((prev) => prev.filter((item) => item.id !== id));
   };
 
   return (
@@ -76,22 +83,44 @@ export default function FormScreen({ route, navigation }) {
                 multiline
             />
 
-            {/* Przycisk otwierający aparat */}
             <Button
                 mode="outlined"
                 icon="camera"
-                onPress={() => navigation.navigate('Camera')}
+                // Przekazujemy aktualną listę do aparatu, by jej nie stracić
+                onPress={() => navigation.navigate('Camera', { existingAttachments: attachments })}
                 style={{ width: '80%', marginBottom: 15 }}
             >
-              Zrób zdjęcie usterki
+              Dodaj zdjęcie lub wideo
             </Button>
 
-            {/* Jeśli zdjęcie zostało zrobione, pokazujemy jego miniaturkę */}
-            {photo && (
-                <Image
-                    source={{ uri: photo }}
-                    style={styles.imagePreview}
-                />
+            {attachments.length > 0 && (
+                <View style={styles.previewContainer}>
+                  <ScrollView
+                      horizontal
+                      showsHorizontalScrollIndicator={false}
+                      contentContainerStyle={styles.scrollContent}
+                  >
+                    {attachments.map((item) => (
+                        <View key={item.id} style={styles.mediaWrapper}>
+                          {item.type === 'photo' ? (
+                              <Image source={{ uri: item.uri }} style={styles.thumbnail} />
+                          ) : (
+                              <View style={[styles.thumbnail, styles.videoThumbnail]}>
+                                <Text style={{ fontSize: 24 }}>🎬</Text>
+                                <Text style={{ fontSize: 10, color: 'white', fontWeight: 'bold' }}>WIDEO</Text>
+                              </View>
+                          )}
+                          <IconButton
+                              icon="close-circle"
+                              iconColor="red"
+                              size={20}
+                              style={styles.deleteIcon}
+                              onPress={() => removeAttachment(item.id)}
+                          />
+                        </View>
+                    ))}
+                  </ScrollView>
+                </View>
             )}
 
             <Button
@@ -129,12 +158,37 @@ const styles = StyleSheet.create({
     borderColor: '#ccc',
     borderRadius: 5,
   },
-  imagePreview: {
-    width: 200,
-    height: 150,
-    borderRadius: 10,
+  previewContainer: {
+    height: 110,
+    width: '80%',
     marginBottom: 15,
+  },
+  scrollContent: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingRight: 20,
+  },
+  mediaWrapper: {
+    position: 'relative',
+    marginRight: 15,
+    marginTop: 10,
+  },
+  thumbnail: {
+    width: 85,
+    height: 85,
+    borderRadius: 8,
     borderWidth: 1,
-    borderColor: '#ccc'
+    borderColor: '#ccc',
+  },
+  videoThumbnail: {
+    backgroundColor: '#333',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  deleteIcon: {
+    position: 'absolute',
+    top: -18,
+    right: -18,
+    margin: 0,
   }
 });

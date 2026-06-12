@@ -23,8 +23,55 @@
       "id": "2-L1706fha8",
       "title": "Awaria klawiatury ",
       "description": "",
-      "status": "Nowe",
+      "status": "W trakcie",
       "photoUri": "file:///var/mobile/Containers/Data/Application/2C0FF577-4CAF-4827-818A-78502D0DA98E/Library/Caches/ExponentExperienceData/@anonymous/ZglaszanieUsterek-d4326501-64e7-4e8d-8b3b-bcb33803b430/Camera/0C434894-7A58-4B9C-B07A-41720AA7797E.jpg"
+    },
+    {
+      "id": "q_v30mjuJpo",
+      "title": "BBC",
+      "description": "Mam",
+      "status": "Nowe",
+      "photoUri": null,
+      "videoUri": "file:///var/mobile/Containers/Data/Application/2C0FF577-4CAF-4827-818A-78502D0DA98E/Library/Caches/ExponentExperienceData/@anonymous/ZglaszanieUsterek-d4326501-64e7-4e8d-8b3b-bcb33803b430/Camera/DEFBC2DB-6272-4DE5-9940-877A05DFD45C.mov"
+    },
+    {
+      "id": "5WAsp8goqgs",
+      "title": "2",
+      "description": "",
+      "status": "Nowe",
+      "photoUri": null,
+      "videoUri": "file:///var/mobile/Containers/Data/Application/2C0FF577-4CAF-4827-818A-78502D0DA98E/Library/Caches/ExponentExperienceData/@anonymous/ZglaszanieUsterek-d4326501-64e7-4e8d-8b3b-bcb33803b430/Camera/975618D2-C03C-47A4-95C7-370DF0752434.mov"
+    },
+    {
+      "id": "bJNuzG8tg18",
+      "title": "3",
+      "description": "",
+      "status": "Nowe",
+      "attachments": [
+        {
+          "uri": "file:///var/mobile/Containers/Data/Application/2C0FF577-4CAF-4827-818A-78502D0DA98E/Library/Caches/ExponentExperienceData/@anonymous/ZglaszanieUsterek-d4326501-64e7-4e8d-8b3b-bcb33803b430/Camera/84CBBDB2-44AD-4BBA-B4C5-648A5A0F5BFF.mov",
+          "type": "video",
+          "id": "1781295237511"
+        }
+      ]
+    },
+    {
+      "id": "f5RCGejIUjQ",
+      "title": "5",
+      "description": "",
+      "status": "W trakcie",
+      "attachments": [
+        {
+          "uri": "file:///var/mobile/Containers/Data/Application/2C0FF577-4CAF-4827-818A-78502D0DA98E/Library/Caches/ExponentExperienceData/@anonymous/ZglaszanieUsterek-d4326501-64e7-4e8d-8b3b-bcb33803b430/Camera/D6A727D4-7C50-4A76-A404-3BFD7614FF9A.jpg",
+          "type": "photo",
+          "id": "1781295464847"
+        },
+        {
+          "uri": "file:///var/mobile/Containers/Data/Application/2C0FF577-4CAF-4827-818A-78502D0DA98E/Library/Caches/ExponentExperienceData/@anonymous/ZglaszanieUsterek-d4326501-64e7-4e8d-8b3b-bcb33803b430/Camera/7B3733C6-E3AE-41C1-8FF6-4DBD60D8E0E7.mov",
+          "type": "video",
+          "id": "1781295471378"
+        }
+      ]
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"
