@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   View,
   Text,
@@ -7,17 +7,25 @@ import {
   Keyboard,
   TouchableWithoutFeedback,
   KeyboardAvoidingView,
-  Platform
+  Platform,
+  Image // <-- Nowy import do wyświetlania zdjęć
 } from 'react-native';
 import { Button } from 'react-native-paper';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
 
-export default function FormScreen({ navigation }) {
+export default function FormScreen({ route, navigation }) {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
+  const [photo, setPhoto] = useState(null); // Stan trzymający zrobione zdjęcie
   const queryClient = useQueryClient();
 
+  // Nasłuchujemy, czy aparat (CameraScreen) odesłał nam zdjęcie
+  useEffect(() => {
+    if (route.params?.photoUri) {
+      setPhoto(route.params.photoUri);
+    }
+  }, [route.params?.photoUri]);
 
   const mutation = useMutation({
     mutationFn: async (newIncident) => {
@@ -25,8 +33,11 @@ export default function FormScreen({ navigation }) {
       return response.data;
     },
     onSuccess: async () => {
-      // Poprawka dla TanStack Query v5 - przekazujemy obiekt z queryKey
       await queryClient.invalidateQueries({ queryKey: ['incidents'] });
+      // Czyścimy formularz po udanym wysłaniu
+      setTitle('');
+      setDescription('');
+      setPhoto(null);
       navigation.navigate('Zgłoszenia', { screen: 'List' });
     },
   });
@@ -37,13 +48,11 @@ export default function FormScreen({ navigation }) {
       id: Date.now().toString(),
       title,
       description,
-      status: 'Nowe'
+      status: 'Nowe',
+      photoUri: photo // Wysyłamy zdjęcie do bazy danych
     });
   };
 
-
-  // 1. Owijamy całość w KeyboardAvoidingView (dla iOS)
-  // 2. TouchableWithoutFeedback chowa klawiaturę po kliknięciu w tło
   return (
       <KeyboardAvoidingView
           behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
@@ -67,6 +76,24 @@ export default function FormScreen({ navigation }) {
                 multiline
             />
 
+            {/* Przycisk otwierający aparat */}
+            <Button
+                mode="outlined"
+                icon="camera"
+                onPress={() => navigation.navigate('Camera')}
+                style={{ width: '80%', marginBottom: 15 }}
+            >
+              Zrób zdjęcie usterki
+            </Button>
+
+            {/* Jeśli zdjęcie zostało zrobione, pokazujemy jego miniaturkę */}
+            {photo && (
+                <Image
+                    source={{ uri: photo }}
+                    style={styles.imagePreview}
+                />
+            )}
+
             <Button
                 mode="contained"
                 onPress={handleSubmit}
@@ -74,7 +101,7 @@ export default function FormScreen({ navigation }) {
                 disabled={mutation.isPending || !title}
                 style={{ marginTop: 10, width: '80%' }}
             >
-              {mutation.isPending ? "Wysyłanie..." : "Dodaj zgłoszenie (POST)"}
+              {mutation.isPending ? "Wysyłanie..." : "Dodaj zgłoszenie"}
             </Button>
           </View>
         </TouchableWithoutFeedback>
@@ -101,5 +128,13 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#ccc',
     borderRadius: 5,
+  },
+  imagePreview: {
+    width: 200,
+    height: 150,
+    borderRadius: 10,
+    marginBottom: 15,
+    borderWidth: 1,
+    borderColor: '#ccc'
   }
 });

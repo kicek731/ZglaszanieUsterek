@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, ScrollView } from 'react-native';
+import { View, StyleSheet, ScrollView, Image } from 'react-native';
 import { Text, Button, Card, Paragraph, Title, Badge } from 'react-native-paper';
 
 export default function DetailsScreen({ route, navigation }) {
@@ -37,6 +37,16 @@ export default function DetailsScreen({ route, navigation }) {
             <Paragraph style={styles.description}>
               {incident.description || 'Brak dodatkowego opisu dla tego zgłoszenia.'}
             </Paragraph>
+
+            {incident.photoUri && (
+                <View style={styles.imageContainer}>
+                  <Text style={styles.label}>Załączone zdjęcie:</Text>
+                  <Image
+                      source={{ uri: incident.photoUri }}
+                      style={styles.image}
+                  />
+                </View>
+            )}
           </Card.Content>
         </Card>
 
@@ -108,6 +118,18 @@ const styles = StyleSheet.create({
     color: '#333',
     marginTop: 5,
     lineHeight: 22,
+  },
+  imageContainer: {
+    marginTop: 15,
+  },
+  image: {
+    width: '100%',
+    height: 200,
+    borderRadius: 8,
+    marginTop: 5,
+    resizeMode: 'cover',
+    borderWidth: 1,
+    borderColor: '#ccc',
   },
   button: {
     marginTop: 10,

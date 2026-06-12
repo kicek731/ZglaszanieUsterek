@@ -1,67 +1,77 @@
-import React, { useRef, useState } from 'react';
-import { View, StyleSheet, Text } from 'react-native';
+import React, { useState, useRef } from 'react';
+import { View, StyleSheet, TouchableOpacity, Text } from 'react-native';
 import { CameraView, useCameraPermissions } from 'expo-camera';
 import { Button } from 'react-native-paper';
 
 export default function CameraScreen({ navigation }) {
-  // Hook do zarz¹dzania uprawnieniami aparatu
   const [permission, requestPermission] = useCameraPermissions();
   const cameraRef = useRef(null);
-  const [photoUri, setPhotoUri] = useState(null);
 
-  // Zabezpieczenie podczas ³adowania
-  if (!permission) return <View />;
+  // Zanim aplikacja sprawdzi uprawnienia, nic nie pokazujemy
+  if (!permission) {
+    return <View />;
+  }
 
-  // Jeœli u¿ytkownik nie da³ jeszcze uprawnieñ
+  // JeÅ›li uÅ¼ytkownik jeszcze nie daÅ‚ dostÄ™pu (lub odmÃ³wiÅ‚), wyÅ›wietlamy proÅ›bÄ™
   if (!permission.granted) {
     return (
-      <View style={styles.center}>
-        <Text style={styles.text}>Aplikacja potrzebuje dostêpu do aparatu.</Text>
-        <Button mode="contained" onPress={requestPermission}>Udziel zgody</Button>
-      </View>
+        <View style={styles.center}>
+          <Text style={{ textAlign: 'center', marginBottom: 20 }}>
+            Potrzebujemy dostÄ™pu do aparatu, aby zrobiÄ‡ zdjÄ™cie usterki.
+          </Text>
+          <Button mode="contained" onPress={requestPermission}>
+            Przyznaj uprawnienia
+          </Button>
+        </View>
     );
   }
 
-  // Funkcja robi¹ca zdjêcie
+  // Funkcja robiÄ…ca zdjÄ™cie
   const takePicture = async () => {
     if (cameraRef.current) {
       const photo = await cameraRef.current.takePictureAsync();
-      setPhotoUri(photo.uri);
+      // Wracamy do ekranu Formularza i przekazujemy mu wygenerowany adres zdjÄ™cia (URI)
+      navigation.navigate('Form', { photoUri: photo.uri });
     }
   };
 
   return (
-    <View style={styles.container}>
-      {photoUri ? (
-        <View style={styles.center}>
-          <Text style={styles.text}>Zdjêcie zrobione pomyœlnie!</Text>
-          <Button mode="contained" onPress={() => navigation.goBack()} style={{ marginBottom: 10 }}>
-            U¿yj tego zdjêcia
-          </Button>
-          <Button mode="outlined" onPress={() => setPhotoUri(null)}>
-            Zrób nowe
-          </Button>
-        </View>
-      ) : (
+      <View style={styles.container}>
         <CameraView style={styles.camera} facing="back" ref={cameraRef}>
           <View style={styles.buttonContainer}>
-            <Button mode="contained" icon="camera" onPress={takePicture}>
-              Zrób zdjêcie usterki
-            </Button>
-            <Button mode="text" textColor="white" onPress={() => navigation.goBack()}>
-              Anuluj
-            </Button>
+            <TouchableOpacity style={styles.captureButton} onPress={takePicture}>
+              <View style={styles.captureInner} />
+            </TouchableOpacity>
           </View>
         </CameraView>
-      )}
-    </View>
+      </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: { flex: 1 },
   center: { flex: 1, justifyContent: 'center', alignItems: 'center', padding: 20 },
-  text: { fontSize: 18, marginBottom: 20, textAlign: 'center' },
-  camera: { flex: 1, justifyContent: 'flex-end' },
-  buttonContainer: { backgroundColor: 'rgba(0,0,0,0.6)', padding: 20, alignItems: 'center' }
+  camera: { flex: 1 },
+  buttonContainer: {
+    flex: 1,
+    backgroundColor: 'transparent',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'flex-end',
+    paddingBottom: 40, // Przycisk bÄ™dzie na dole ekranu
+  },
+  captureButton: {
+    width: 70,
+    height: 70,
+    borderRadius: 35,
+    backgroundColor: 'rgba(255,255,255,0.3)',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  captureInner: {
+    width: 60,
+    height: 60,
+    borderRadius: 30,
+    backgroundColor: 'white',
+  }
 });

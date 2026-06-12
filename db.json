@@ -11,6 +11,20 @@
       "title": "Usterka ",
       "description": "Prąd wybija ",
       "status": "Naprawione"
+    },
+    {
+      "id": "SmCmYtTkemQ",
+      "title": "Truru",
+      "description": "Tutu",
+      "status": "Naprawione",
+      "photoUri": "file:///var/mobile/Containers/Data/Application/2C0FF577-4CAF-4827-818A-78502D0DA98E/Library/Caches/ExponentExperienceData/@anonymous/ZglaszanieUsterek-d4326501-64e7-4e8d-8b3b-bcb33803b430/Camera/A60C8DE2-E2ED-490D-AC4A-3880BCD26734.jpg"
+    },
+    {
+      "id": "2-L1706fha8",
+      "title": "Awaria klawiatury ",
+      "description": "",
+      "status": "Nowe",
+      "photoUri": "file:///var/mobile/Containers/Data/Application/2C0FF577-4CAF-4827-818A-78502D0DA98E/Library/Caches/ExponentExperienceData/@anonymous/ZglaszanieUsterek-d4326501-64e7-4e8d-8b3b-bcb33803b430/Camera/0C434894-7A58-4B9C-B07A-41720AA7797E.jpg"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"
