@@ -72,6 +72,62 @@
           "id": "1781295471378"
         }
       ]
+    },
+    {
+      "id": "QY8Jstw1U8I",
+      "title": "5",
+      "description": "10",
+      "status": "W trakcie",
+      "attachments": [
+        {
+          "uri": "file:///var/mobile/Containers/Data/Application/2C0FF577-4CAF-4827-818A-78502D0DA98E/Library/Caches/ExponentExperienceData/@anonymous/ZglaszanieUsterek-d4326501-64e7-4e8d-8b3b-bcb33803b430/Camera/7AE18A83-B699-48B5-BE90-0DFBAF46456D.jpg",
+          "type": "photo",
+          "id": "1781299858793"
+        },
+        {
+          "uri": "file:///var/mobile/Containers/Data/Application/2C0FF577-4CAF-4827-818A-78502D0DA98E/Library/Caches/ExponentExperienceData/@anonymous/ZglaszanieUsterek-d4326501-64e7-4e8d-8b3b-bcb33803b430/Camera/7B37670D-9E2A-4CFB-8A79-CDB5A73D2DFD.mov",
+          "type": "video",
+          "id": "1781299866917"
+        }
+      ],
+      "location": null
+    },
+    {
+      "id": "r-HxOQQYVCo",
+      "title": "Fuszera w motkowicach ",
+      "description": "",
+      "status": "W trakcie",
+      "attachments": [],
+      "location": {
+        "latitude": 50.60980799143523,
+        "longitude": 20.49118467055811,
+        "address": "Kasztanowa 18, Motkowice",
+        "details": "1 piętro "
+      }
+    },
+    {
+      "id": "MWteKSxq-5U",
+      "title": "fuszerka x3",
+      "description": "X3",
+      "status": "Nowe",
+      "attachments": [
+        {
+          "uri": "file:///var/mobile/Containers/Data/Application/2C0FF577-4CAF-4827-818A-78502D0DA98E/Library/Caches/ExponentExperienceData/@anonymous/ZglaszanieUsterek-d4326501-64e7-4e8d-8b3b-bcb33803b430/Camera/AAFD4273-E5FB-4B4B-8EB1-EB9FCB7F87AD.jpg",
+          "type": "photo",
+          "id": "1781300643691"
+        },
+        {
+          "uri": "file:///var/mobile/Containers/Data/Application/2C0FF577-4CAF-4827-818A-78502D0DA98E/Library/Caches/ExponentExperienceData/@anonymous/ZglaszanieUsterek-d4326501-64e7-4e8d-8b3b-bcb33803b430/Camera/087B2438-5971-4A7F-BFCF-FE15888F3020.mov",
+          "type": "video",
+          "id": "1781300649627"
+        }
+      ],
+      "location": {
+        "latitude": 50.609803168286724,
+        "longitude": 20.491198879039892,
+        "address": "Kasztanowa 18, Motkowice",
+        "details": "Trututu "
+      }
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"

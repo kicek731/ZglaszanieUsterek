@@ -3,69 +3,87 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
-// Import 8 ekranÛw
+// Ekrany Autoryzacji
+import WelcomeScreen from '../screens/WelcomeScreen';
+import LoginScreen from '../screens/LoginScreen';
+import RegisterScreen from '../screens/RegisterScreen';
+
+// Ekrany G≈Ç√≥wne
 import ListScreen from '../screens/ListScreen';
 import DetailsScreen from '../screens/DetailsScreen';
 import EditStatusScreen from '../screens/EditStatusScreen';
 import FormScreen from '../screens/FormScreen';
 import CameraScreen from '../screens/CameraScreen';
+import LocationScreen from '../screens/LocationScreen'; // NOWY EKRAN GPS
 import ProfileScreen from '../screens/ProfileScreen';
-import LevelScreen from '../screens/LevelScreen';
 import AboutScreen from '../screens/AboutScreen';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
-// Stos 1: Zg≥oszenia (Lista -> SzczegÛ≥y -> Edycja)
+// Stos 1: Zg≈Çoszenia
 function IssuesStack() {
-  return (
-    <Stack.Navigator>
-      <Stack.Screen name="List" component={ListScreen} options={{ title: 'Moje Zg≥oszenia' }} />
-      <Stack.Screen name="Details" component={DetailsScreen} options={{ title: 'SzczegÛ≥y usterki' }} />
-      <Stack.Screen name="EditStatus" component={EditStatusScreen} options={{ title: 'Edytuj status' }} />
-    </Stack.Navigator>
-  );
+    return (
+        <Stack.Navigator>
+            <Stack.Screen name="List" component={ListScreen} options={{ title: 'Moje Zg≈Çoszenia' }} />
+            <Stack.Screen name="Details" component={DetailsScreen} options={{ title: 'Szczeg√≥≈Çy usterki' }} />
+            <Stack.Screen name="EditStatus" component={EditStatusScreen} options={{ title: 'Edytuj status' }} />
+        </Stack.Navigator>
+    );
 }
 
-// Stos 2: Nowe zg≥oszenie (Formularz -> Aparat)
+// Stos 2: Nowe zg≈Çoszenie (Formularz -> Aparat / GPS)
 function NewIssueStack() {
-  return (
-    <Stack.Navigator>
-      <Stack.Screen name="Form" component={FormScreen} options={{ title: 'Zg≥oú usterkÍ' }} />
-      <Stack.Screen name="Camera" component={CameraScreen} options={{ title: 'ZrÛb zdjÍcie', headerShown: false }} />
-    </Stack.Navigator>
-  );
+    return (
+        <Stack.Navigator>
+            <Stack.Screen name="Form" component={FormScreen} options={{ title: 'Zg≈Ço≈õ usterkƒô' }} />
+            <Stack.Screen name="Camera" component={CameraScreen} options={{ title: 'Zr√≥b zdjƒôcie', headerShown: false }} />
+            <Stack.Screen name="Location" component={LocationScreen} options={{ title: 'Pobierz Lokalizacjƒô' }} />
+        </Stack.Navigator>
+    );
 }
 
-// Stos 3: Profil i narzÍdzia (Profil -> Poziomica / O Aplikacji)
+// Stos 3: Profil
 function ProfileStack() {
-  return (
-    <Stack.Navigator>
-      <Stack.Screen name="Profile" component={ProfileScreen} options={{ title: 'Profil' }} />
-      <Stack.Screen name="Level" component={LevelScreen} options={{ title: 'Poziomica' }} />
-      <Stack.Screen name="About" component={AboutScreen} options={{ title: 'O aplikacji' }} />
-    </Stack.Navigator>
-  );
+    return (
+        <Stack.Navigator>
+            <Stack.Screen name="Profile" component={ProfileScreen} options={{ title: 'Profil' }} />
+            <Stack.Screen name="About" component={AboutScreen} options={{ title: 'O aplikacji' }} />
+        </Stack.Navigator>
+    );
 }
 
-// G≥Ûwny nawigator z zak≥adkami (Bottom Tabs) ≥πczπcy powyøsze stosy
+// G≈Ç√≥wne Zak≈Çadki Aplikacji (Bottom Tabs)
+function MainTabs() {
+    return (
+        <Tab.Navigator
+            screenOptions={({ route }) => ({
+                tabBarIcon: ({ color, size }) => {
+                    let iconName;
+                    if (route.name === 'Zg≈Çoszenia') iconName = 'format-list-bulleted';
+                    else if (route.name === 'Dodaj') iconName = 'plus-circle';
+                    else if (route.name === 'Konto') iconName = 'account-circle';
+                    return <MaterialCommunityIcons name={iconName} size={size} color={color} />;
+                },
+                headerShown: false,
+            })}
+        >
+            <Tab.Screen name="Zg≈Çoszenia" component={IssuesStack} />
+            <Tab.Screen name="Dodaj" component={NewIssueStack} />
+            <Tab.Screen name="Konto" component={ProfileStack} />
+        </Tab.Navigator>
+    );
+}
+
+// G≈Å√ìWNY KONTROLER: Logowanie -> Aplikacja
 export default function AppNavigator() {
-  return (
-    <Tab.Navigator
-      screenOptions={({ route }) => ({
-        tabBarIcon: ({ color, size }) => {
-          let iconName;
-          if (route.name === 'Zg≥oszenia') iconName = 'format-list-bulleted';
-          else if (route.name === 'Dodaj') iconName = 'plus-circle';
-          else if (route.name === 'Konto') iconName = 'account-circle';
-          return <MaterialCommunityIcons name={iconName} size={size} color={color} />;
-        },
-        headerShown: false, // Ukrywamy nag≥Ûwek zak≥adek, bo kaødy stos ma w≥asny
-      })}
-    >
-      <Tab.Screen name="Zg≥oszenia" component={IssuesStack} />
-      <Tab.Screen name="Dodaj" component={NewIssueStack} />
-      <Tab.Screen name="Konto" component={ProfileStack} />
-    </Tab.Navigator>
-  );
+    return (
+        <Stack.Navigator screenOptions={{ headerShown: false }}>
+            <Stack.Screen name="Welcome" component={WelcomeScreen} />
+            <Stack.Screen name="Login" component={LoginScreen} />
+            <Stack.Screen name="Register" component={RegisterScreen} />
+            {/* Po zalogowaniu wchodzimy w MainApp */}
+            <Stack.Screen name="MainApp" component={MainTabs} />
+        </Stack.Navigator>
+    );
 }
