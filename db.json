@@ -13,65 +13,11 @@
       "status": "Naprawione"
     },
     {
-      "id": "SmCmYtTkemQ",
-      "title": "Truru",
-      "description": "Tutu",
-      "status": "Naprawione",
-      "photoUri": "file:///var/mobile/Containers/Data/Application/2C0FF577-4CAF-4827-818A-78502D0DA98E/Library/Caches/ExponentExperienceData/@anonymous/ZglaszanieUsterek-d4326501-64e7-4e8d-8b3b-bcb33803b430/Camera/A60C8DE2-E2ED-490D-AC4A-3880BCD26734.jpg"
-    },
-    {
       "id": "2-L1706fha8",
       "title": "Awaria klawiatury ",
       "description": "",
       "status": "W trakcie",
       "photoUri": "file:///var/mobile/Containers/Data/Application/2C0FF577-4CAF-4827-818A-78502D0DA98E/Library/Caches/ExponentExperienceData/@anonymous/ZglaszanieUsterek-d4326501-64e7-4e8d-8b3b-bcb33803b430/Camera/0C434894-7A58-4B9C-B07A-41720AA7797E.jpg"
-    },
-    {
-      "id": "q_v30mjuJpo",
-      "title": "BBC",
-      "description": "Mam",
-      "status": "Nowe",
-      "photoUri": null,
-      "videoUri": "file:///var/mobile/Containers/Data/Application/2C0FF577-4CAF-4827-818A-78502D0DA98E/Library/Caches/ExponentExperienceData/@anonymous/ZglaszanieUsterek-d4326501-64e7-4e8d-8b3b-bcb33803b430/Camera/DEFBC2DB-6272-4DE5-9940-877A05DFD45C.mov"
-    },
-    {
-      "id": "5WAsp8goqgs",
-      "title": "2",
-      "description": "",
-      "status": "Nowe",
-      "photoUri": null,
-      "videoUri": "file:///var/mobile/Containers/Data/Application/2C0FF577-4CAF-4827-818A-78502D0DA98E/Library/Caches/ExponentExperienceData/@anonymous/ZglaszanieUsterek-d4326501-64e7-4e8d-8b3b-bcb33803b430/Camera/975618D2-C03C-47A4-95C7-370DF0752434.mov"
-    },
-    {
-      "id": "bJNuzG8tg18",
-      "title": "3",
-      "description": "",
-      "status": "Nowe",
-      "attachments": [
-        {
-          "uri": "file:///var/mobile/Containers/Data/Application/2C0FF577-4CAF-4827-818A-78502D0DA98E/Library/Caches/ExponentExperienceData/@anonymous/ZglaszanieUsterek-d4326501-64e7-4e8d-8b3b-bcb33803b430/Camera/84CBBDB2-44AD-4BBA-B4C5-648A5A0F5BFF.mov",
-          "type": "video",
-          "id": "1781295237511"
-        }
-      ]
-    },
-    {
-      "id": "f5RCGejIUjQ",
-      "title": "5",
-      "description": "",
-      "status": "W trakcie",
-      "attachments": [
-        {
-          "uri": "file:///var/mobile/Containers/Data/Application/2C0FF577-4CAF-4827-818A-78502D0DA98E/Library/Caches/ExponentExperienceData/@anonymous/ZglaszanieUsterek-d4326501-64e7-4e8d-8b3b-bcb33803b430/Camera/D6A727D4-7C50-4A76-A404-3BFD7614FF9A.jpg",
-          "type": "photo",
-          "id": "1781295464847"
-        },
-        {
-          "uri": "file:///var/mobile/Containers/Data/Application/2C0FF577-4CAF-4827-818A-78502D0DA98E/Library/Caches/ExponentExperienceData/@anonymous/ZglaszanieUsterek-d4326501-64e7-4e8d-8b3b-bcb33803b430/Camera/7B3733C6-E3AE-41C1-8FF6-4DBD60D8E0E7.mov",
-          "type": "video",
-          "id": "1781295471378"
-        }
-      ]
     },
     {
       "id": "QY8Jstw1U8I",
@@ -109,7 +55,7 @@
       "id": "MWteKSxq-5U",
       "title": "fuszerka x3",
       "description": "X3",
-      "status": "Nowe",
+      "status": "Naprawione",
       "attachments": [
         {
           "uri": "file:///var/mobile/Containers/Data/Application/2C0FF577-4CAF-4827-818A-78502D0DA98E/Library/Caches/ExponentExperienceData/@anonymous/ZglaszanieUsterek-d4326501-64e7-4e8d-8b3b-bcb33803b430/Camera/AAFD4273-E5FB-4B4B-8EB1-EB9FCB7F87AD.jpg",
@@ -127,6 +73,30 @@
         "longitude": 20.491198879039892,
         "address": "Kasztanowa 18, Motkowice",
         "details": "Trututu "
+      }
+    },
+    {
+      "id": "LOu789aH-wI",
+      "title": "awaria z projektem ",
+      "description": "12345",
+      "status": "Nowe",
+      "attachments": [
+        {
+          "uri": "file:///var/mobile/Containers/Data/Application/2C0FF577-4CAF-4827-818A-78502D0DA98E/Library/Caches/ExponentExperienceData/@anonymous/ZglaszanieUsterek-d4326501-64e7-4e8d-8b3b-bcb33803b430/Camera/B1A31770-9DA2-4BEF-8771-0500348229AA.jpg",
+          "type": "photo",
+          "id": "1781341814786"
+        },
+        {
+          "uri": "file:///var/mobile/Containers/Data/Application/2C0FF577-4CAF-4827-818A-78502D0DA98E/Library/Caches/ExponentExperienceData/@anonymous/ZglaszanieUsterek-d4326501-64e7-4e8d-8b3b-bcb33803b430/Camera/FA995B7F-6D09-4C30-AC94-D408436B3A20.mov",
+          "type": "video",
+          "id": "1781341821136"
+        }
+      ],
+      "location": {
+        "latitude": 50.87957006966512,
+        "longitude": 20.640453812667854,
+        "address": "Mikołaja Reja 51, Kielce",
+        "details": "3p107"
       }
     }
   ],

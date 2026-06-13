@@ -1,11 +1,14 @@
 import React from 'react';
-import { View, StyleSheet, ScrollView, Image } from 'react-native';
+import { View, StyleSheet, ScrollView, Image, Alert } from 'react-native';
 import { Text, Button, Card, Paragraph, Title, Badge, IconButton } from 'react-native-paper';
 import { Video, ResizeMode } from 'expo-av';
 import * as Clipboard from 'expo-clipboard';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import axios from 'axios';
 
 export default function DetailsScreen({ route, navigation }) {
   const incident = route.params?.incident;
+  const queryClient = useQueryClient();
 
   if (!incident) return <View style={styles.center}><Text style={styles.errorText}>Brak usterki.</Text></View>;
 
@@ -23,6 +26,34 @@ export default function DetailsScreen({ route, navigation }) {
     }
   };
 
+  // Mutacja odpowiedzialna za usunięcie usterki z bazy API
+  const deleteMutation = useMutation({
+    mutationFn: async (id) => {
+      await axios.delete(`http://172.20.10.6:3000/incidents/${id}`);
+    },
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({ queryKey: ['incidents'] });
+      // Po udanym usunięciu wracamy do listy głównej
+      navigation.goBack();
+    },
+  });
+
+  // Funkcja wywołująca natywny Alert (zabezpieczenie przed pomyłką)
+  const handleDelete = () => {
+    Alert.alert(
+        "Usuń zgłoszenie",
+        "Czy na pewno chcesz bezpowrotnie usunąć to zgłoszenie z systemu?",
+        [
+          { text: "Anuluj", style: "cancel" },
+          {
+            text: "Usuń",
+            style: "destructive",
+            onPress: () => deleteMutation.mutate(incident.id)
+          }
+        ]
+    );
+  };
+
   return (
       <ScrollView contentContainerStyle={styles.container}>
         <Card style={styles.card}>
@@ -35,7 +66,6 @@ export default function DetailsScreen({ route, navigation }) {
             <Text style={styles.label}>Opis usterki:</Text>
             <Paragraph style={styles.description}>{incident.description || 'Brak dodatkowego opisu'}</Paragraph>
 
-            {/* Nowa sekcja lokalizacji */}
             {incident.location && (
                 <View style={styles.locationContainer}>
                   <Text style={styles.label}>Miejsce usterki:</Text>
@@ -74,7 +104,21 @@ export default function DetailsScreen({ route, navigation }) {
         <Button mode="contained" style={styles.button} onPress={() => navigation.navigate('EditStatus', { incident })}>
           Edytuj status usterki
         </Button>
-        <Button mode="outlined" style={styles.backButton} onPress={() => navigation.goBack()}>
+
+        {/* NOWY PRZYCISK: Usuwanie usterki */}
+        <Button
+            mode="outlined"
+            textColor="#df4759"
+            style={[styles.backButton, { borderColor: '#df4759' }]}
+            onPress={handleDelete}
+            loading={deleteMutation.isPending}
+            disabled={deleteMutation.isPending}
+            icon="delete"
+        >
+          Usuń usterkę
+        </Button>
+
+        <Button mode="text" style={styles.backButton} onPress={() => navigation.goBack()}>
           Powrót do listy
         </Button>
       </ScrollView>
