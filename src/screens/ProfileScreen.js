@@ -1,92 +1,102 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
-import { Button, Text, Title, Avatar, Card } from 'react-native-paper';
+import { View, StyleSheet, ScrollView } from 'react-native';
+import { Text, Title, Card, Paragraph, Avatar } from 'react-native-paper';
 
-export default function ProfileScreen({ navigation }) {
-
-  const handleLogout = () => {
-    // Ca³kowicie czyœcimy historiê nawigacji i wracamy do ekranu powitalnego.
-    // Dziêki temu nie da siê wróciæ do zalogowanej sesji przyciskiem "Wstecz".
-    navigation.reset({
-      index: 0,
-      routes: [{ name: 'Welcome' }],
-    });
-  };
-
+export default function AboutScreen() {
   return (
-      <View style={styles.container}>
+      <ScrollView contentContainerStyle={styles.container}>
         <View style={styles.header}>
-          <Avatar.Text size={80} label="£" style={styles.avatar} />
-          <Title style={styles.name}>£ukasz</Title>
-          <Text style={styles.role}>Konto Administratora</Text>
+          <Avatar.Icon size={80} icon="information-variant" style={styles.icon} />
+          <Title style={styles.title}>System Zg³oszeñ</Title>
+          <Text style={styles.version}>Wersja 1.0.0</Text>
         </View>
 
         <Card style={styles.card}>
           <Card.Content>
-            <Text style={styles.label}>Adres e-mail:</Text>
-            <Text style={styles.value}>lukasz@example.com</Text>
+            <Title style={styles.cardTitle}>O projekcie</Title>
+            <Paragraph style={styles.paragraph}>
+              Aplikacja mobilna s³u¿¹ca do precyzyjnego zg³aszania, monitorowania i zarz¹dzania usterkami w terenie.
+              Projekt zosta³ zrealizowany z wykorzystaniem nowoczesnych technologii webowych i mobilnych (React Native, Expo, TanStack Query).
+            </Paragraph>
+            <Paragraph style={styles.paragraph}>
+              System integruje natywne sensory urz¹dzenia, takie jak modu³ GPS (Reverse Geocoding), matrycê aparatu oraz mikrofon, pozwalaj¹c na tworzenie kompleksowej dokumentacji zg³oszeñ.
+            </Paragraph>
           </Card.Content>
         </Card>
 
         <Card style={styles.card}>
           <Card.Content>
-            <Text style={styles.label}>Uprawnienia:</Text>
-            <Text style={styles.value}>Zarz¹dzanie usterkami (Pe³en dostêp)</Text>
+            <Title style={styles.cardTitle}>Informacje akademickie</Title>
+            <Paragraph style={styles.infoLine}>
+              <Text style={styles.bold}>Autorzy:</Text> £ukasz D¹bek, Daniel Chatys
+            </Paragraph>
+            <Paragraph style={styles.infoLine}>
+              <Text style={styles.bold}>Uczelnia:</Text> Politechnika Œwiêtokrzyska
+            </Paragraph>
+            <Paragraph style={styles.infoLine}>
+              <Text style={styles.bold}>Kierunek:</Text> Informatyka
+            </Paragraph>
           </Card.Content>
         </Card>
 
-        <Button
-            mode="contained"
-            icon="logout"
-            buttonColor="#df4759"
-            style={styles.logoutButton}
-            onPress={handleLogout}
-        >
-          Wyloguj siê
-        </Button>
-      </View>
+        <Text style={styles.footer}>© 2026 Wszelkie prawa zastrze¿one</Text>
+      </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flexGrow: 1,
     padding: 20,
     backgroundColor: '#f5f5f5',
   },
   header: {
     alignItems: 'center',
-    marginVertical: 30,
+    marginVertical: 20,
+    marginBottom: 30,
   },
-  avatar: {
+  icon: {
     backgroundColor: '#6200ee',
     marginBottom: 10,
   },
-  name: {
+  title: {
     fontSize: 26,
     fontWeight: 'bold',
+    color: '#333',
   },
-  role: {
-    fontSize: 16,
+  version: {
+    fontSize: 14,
     color: '#666',
   },
   card: {
-    marginBottom: 15,
-    elevation: 2,
+    marginBottom: 20,
+    elevation: 3,
     backgroundColor: 'white',
   },
-  label: {
-    fontSize: 14,
-    color: 'gray',
-    marginBottom: 5,
+  cardTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginBottom: 10,
+    color: '#6200ee',
   },
-  value: {
-    fontSize: 16,
+  paragraph: {
+    fontSize: 15,
+    lineHeight: 22,
+    marginBottom: 10,
+    color: '#444',
+  },
+  infoLine: {
+    fontSize: 15,
+    marginBottom: 5,
+    color: '#333',
+  },
+  bold: {
     fontWeight: 'bold',
   },
-  logoutButton: {
-    marginTop: 'auto', // Wypycha przycisk na sam dó³ ekranu
-    marginBottom: 20,
-    paddingVertical: 5,
+  footer: {
+    textAlign: 'center',
+    marginTop: 20,
+    color: 'gray',
+    fontSize: 12,
   }
 });
