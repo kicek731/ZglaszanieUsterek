@@ -14,8 +14,8 @@ export default function ProfileScreen({ navigation }) {
   return (
       <View style={styles.container}>
         <View style={styles.header}>
-          <Avatar.Text size={80} label="£" style={styles.avatar} />
-          <Title style={styles.name}>£ukasz</Title>
+          <Avatar.Text size={80} label="ï¿½" style={styles.avatar} />
+          <Title style={styles.name}>ï¿½ukasz</Title>
           <Text style={styles.role}>Konto Administratora</Text>
         </View>
 
@@ -29,11 +29,11 @@ export default function ProfileScreen({ navigation }) {
         <Card style={styles.card}>
           <Card.Content>
             <Text style={styles.label}>Uprawnienia:</Text>
-            <Text style={styles.value}>Zarz¹dzanie usterkami (Pe³en dostêp)</Text>
+            <Text style={styles.value}>Zarzï¿½dzanie usterkami (Peï¿½en dostï¿½p)</Text>
           </Card.Content>
         </Card>
 
-        {/* NOWY PRZYCISK: Przejœcie do ekranu O aplikacji */}
+        {/* NOWY PRZYCISK: Przejï¿½cie do ekranu O aplikacji */}
         <Button
             mode="outlined"
             icon="information"
@@ -50,7 +50,7 @@ export default function ProfileScreen({ navigation }) {
             style={styles.logoutButton}
             onPress={handleLogout}
         >
-          Wyloguj siê
+          Wyloguj siï¿½
         </Button>
       </View>
   );

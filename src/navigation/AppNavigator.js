@@ -70,7 +70,11 @@ function MainTabs() {
         >
             <Tab.Screen name="Zgłoszenia" component={IssuesStack} />
             <Tab.Screen name="Dodaj" component={NewIssueStack} />
-            <Tab.Screen name="Konto" component={ProfileStack} />
+            <Tab.Screen
+                name="Konto"
+                component={ProfileStack}
+                options={{ unmountOnBlur: true }} // <--- Ta flaga wymusza czyszczenie historii stosu po zmianie zakładki
+            />
         </Tab.Navigator>
     );
 }

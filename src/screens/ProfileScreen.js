@@ -7,7 +7,7 @@ export default function AboutScreen() {
       <ScrollView contentContainerStyle={styles.container}>
         <View style={styles.header}>
           <Avatar.Icon size={80} icon="information-variant" style={styles.icon} />
-          <Title style={styles.title}>System Zg≥oszeÒ</Title>
+          <Title style={styles.title}>System Zg≈Çosze≈Ñ</Title>
           <Text style={styles.version}>Wersja 1.0.0</Text>
         </View>
 
@@ -15,11 +15,11 @@ export default function AboutScreen() {
           <Card.Content>
             <Title style={styles.cardTitle}>O projekcie</Title>
             <Paragraph style={styles.paragraph}>
-              Aplikacja mobilna s≥uøπca do precyzyjnego zg≥aszania, monitorowania i zarzπdzania usterkami w terenie.
-              Projekt zosta≥ zrealizowany z wykorzystaniem nowoczesnych technologii webowych i mobilnych (React Native, Expo, TanStack Query).
+              Aplikacja mobilna s≈Çu≈ºƒÖca do precyzyjnego zg≈Çaszania, monitorowania i zarzƒÖdzania usterkami w terenie.
+              Projekt zosta≈Ç zrealizowany z wykorzystaniem nowoczesnych technologii webowych i mobilnych (React Native, Expo, TanStack Query).
             </Paragraph>
             <Paragraph style={styles.paragraph}>
-              System integruje natywne sensory urzπdzenia, takie jak modu≥ GPS (Reverse Geocoding), matrycÍ aparatu oraz mikrofon, pozwalajπc na tworzenie kompleksowej dokumentacji zg≥oszeÒ.
+              System integruje natywne sensory urzƒÖdzenia, takie jak modu≈Ç GPS (Reverse Geocoding), matrycƒô aparatu oraz mikrofon, pozwalajƒÖc na tworzenie kompleksowej dokumentacji zg≈Çosze≈Ñ.
             </Paragraph>
           </Card.Content>
         </Card>
@@ -28,10 +28,10 @@ export default function AboutScreen() {
           <Card.Content>
             <Title style={styles.cardTitle}>Informacje akademickie</Title>
             <Paragraph style={styles.infoLine}>
-              <Text style={styles.bold}>Autorzy:</Text> £ukasz Dπbek, Daniel Chatys
+              <Text style={styles.bold}>Autorzy:</Text> ≈Åukasz DƒÖbek, Daniel Chatys
             </Paragraph>
             <Paragraph style={styles.infoLine}>
-              <Text style={styles.bold}>Uczelnia:</Text> Politechnika åwiÍtokrzyska
+              <Text style={styles.bold}>Uczelnia:</Text> Politechnika ≈öwiƒôtokrzyska
             </Paragraph>
             <Paragraph style={styles.infoLine}>
               <Text style={styles.bold}>Kierunek:</Text> Informatyka
@@ -39,7 +39,7 @@ export default function AboutScreen() {
           </Card.Content>
         </Card>
 
-        <Text style={styles.footer}>© 2026 Wszelkie prawa zastrzeøone</Text>
+        <Text style={styles.footer}>¬© 2026 Wszelkie prawa zastrze≈ºone</Text>
       </ScrollView>
   );
 }
